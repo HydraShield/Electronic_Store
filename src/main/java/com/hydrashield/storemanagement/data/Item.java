@@ -2,6 +2,9 @@ package com.hydrashield.storemanagement.data;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "items")
 public class Item {
@@ -11,6 +14,9 @@ public class Item {
     String model;
     String company;
     int price;
+
+    @OneToMany(mappedBy = "item")
+    public List<Order> orders;
 
     public int getItem_id() {
         return item_id;
