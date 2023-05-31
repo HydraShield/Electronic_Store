@@ -1,5 +1,6 @@
 package com.hydrashield.storemanagement.data;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +19,7 @@ public class Order {
 
     int quantity;
 
+    @JsonBackReference(value = "bill-orders")
     public Bill getBill() {
         return bill;
     }
@@ -26,6 +28,7 @@ public class Order {
         this.bill = bill;
     }
 
+    @JsonBackReference(value = "item-orders")
     public Item getItem() {
         return item;
     }

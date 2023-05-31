@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class MainController {
 
     @Autowired
@@ -50,8 +51,9 @@ public class MainController {
         return ResponseEntity.ok(itemAccess.getByPriceGraterThan(Integer.parseInt(price)));
     }
 
-    @PostMapping(path = "/item")
+    @PostMapping(path = "/item", consumes={"application/json"})
     public ResponseEntity<?> addItem(@RequestBody Item item){
+        System.out.println(item);
         return ResponseEntity.ok(itemAccess.addItem(item));
     }
 

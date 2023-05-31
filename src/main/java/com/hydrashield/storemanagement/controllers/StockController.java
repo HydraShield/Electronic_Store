@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class StockController {
     @Autowired
     StockAccess stockAccess;

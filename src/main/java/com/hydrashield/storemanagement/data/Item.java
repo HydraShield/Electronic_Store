@@ -1,5 +1,6 @@
 package com.hydrashield.storemanagement.data;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,8 +16,14 @@ public class Item {
     String company;
     int price;
 
+
     @OneToMany(mappedBy = "item")
     public List<Order> orders;
+
+    @JsonManagedReference(value = "item-orders")
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     public int getItem_id() {
         return item_id;
@@ -48,5 +55,16 @@ public class Item {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "item_id=" + item_id +
+                ", model='" + model + '\'' +
+                ", company='" + company + '\'' +
+                ", price=" + price +
+                ", orders=" + orders +
+                '}';
     }
 }

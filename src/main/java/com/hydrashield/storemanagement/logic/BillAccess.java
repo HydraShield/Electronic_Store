@@ -1,16 +1,15 @@
 package com.hydrashield.storemanagement.logic;
 
 import com.hydrashield.storemanagement.data.*;
+import com.hydrashield.storemanagement.data2.CompleteBill;
 import com.hydrashield.storemanagement.respository.BillRepository;
 import com.hydrashield.storemanagement.respository.ItemRepository;
 import com.hydrashield.storemanagement.respository.OrderRepository;
 import com.hydrashield.storemanagement.respository.StockRepository;
 import jakarta.transaction.Transactional;
-import org.hibernate.internal.util.collections.IdentitySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 @Service
@@ -108,5 +107,12 @@ public class BillAccess {
         Bill fbill = bill.get();
         orderRepository.deleteByBill(fbill);
         billRepository.deleteById(id);
+    }
+
+    public List<Order> getAllOrder(){
+        Iterable<Order> orders =  orderRepository.findAll();
+        List<Order> lst = new ArrayList<>();
+        orders.forEach(lst::add);
+        return lst;
     }
 }

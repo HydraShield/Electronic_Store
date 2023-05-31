@@ -1,6 +1,6 @@
 package com.hydrashield.storemanagement.controllers;
 
-import com.hydrashield.storemanagement.data.CompleteBill;
+import com.hydrashield.storemanagement.data2.CompleteBill;
 import com.hydrashield.storemanagement.logic.BillAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class BillController {
     @Autowired
     BillAccess billAccess;
@@ -37,6 +38,11 @@ public class BillController {
     public ResponseEntity<?> deleteById(@PathVariable @NonNull Integer id){
         billAccess.deleteById(id);
         return ResponseEntity.ok("Given Bill Deleted");
+    }
+
+    @GetMapping(path = "/orders")
+    public ResponseEntity<?> getAllOrders(){
+        return ResponseEntity.ok(billAccess.getAllOrder());
     }
 
 }

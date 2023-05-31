@@ -1,5 +1,6 @@
 package com.hydrashield.storemanagement.data;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -21,6 +22,11 @@ public class Bill {
 
     @OneToMany(mappedBy = "bill")
     public List<Order> orders;
+
+    @JsonManagedReference(value = "bill-orders")
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     public int getBill_id() {
         return bill_id;
