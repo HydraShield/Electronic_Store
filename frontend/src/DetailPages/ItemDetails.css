@@ -1,0 +1,29 @@
+.item-details {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+  }
+  
+.item-details h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  }
+  
+.detail-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+.detail-row .label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+.btn {
+    margin-left: 5px;
+  }
+
+  

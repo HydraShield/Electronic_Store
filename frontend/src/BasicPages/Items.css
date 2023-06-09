@@ -1,0 +1,46 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.deleteAll{
+  margin-left: 5px;
+  color: #fff; /* Change font color */
+  background-color: #f44336; /* Change background color */
+  border-radius: 5px;
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+.table-container .table th,
+.table-container .table td {
+  vertical-align: middle;
+  text-align: left;
+}
+
+
+.btn {
+  margin-left: 5px;
+  color: #fff; /* Change font color */
+  background-color: #f44336; /* Change background color */
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Change background color for secondary button */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Change background color for primary button */
+}
+
+.actions .button {
+  margin-right: 10px;
+}

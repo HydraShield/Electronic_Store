@@ -1,43 +1,44 @@
 import React, { useState } from 'react';
-import style from './ItemPost.css'
+import { useLocation, useNavigate } from 'react-router-dom';
 import ItemService from '../Services/ItemService';
+import style from './ItemUpdate.css'
 
-const ItemPost = () => {
-  const [model, setModel] = useState('');
-  const [company, setCompany] = useState('');
-  const [price, setPrice] = useState(0);
+const ItemUpdate = () => {
+
+  const location = useLocation();
+  const item = location.state;
+
+  const history = useNavigate();
+
+  const [model, setModel] = useState(item.model);
+  const [company, setCompany] = useState(item.company);
+  const [price, setPrice] = useState(item.price);
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-    const newItem = {
-      model,
-      company,
-      price
-    };
-
-    console.log(newItem)
-    const response = await ItemService.addItem(newItem);
+      const uItem = {item_id:item.item_id, model:model, company:company, price:price}
+      const response = await ItemService.updateItem(item.item_id, uItem);
     if ( response.status == 200 ){
       alert(response.data)
+      history('/item/detail', {state: response.data})
     }
     else{
       console.log(response.error)
     }
-    
-
-    setModel('');
-    setCompany('');
-    setPrice('');
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="add-item">
-      <h1>Add New Item</h1>
+    <div className="update-item">
+      <h1>Update Item</h1>
       <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Item ID:</label>
+          <span>{item.item_id}</span>
+        </div>
         <div className="form-group">
           <label>Model:</label>
           <input
@@ -66,11 +67,11 @@ const ItemPost = () => {
           />
         </div>
         <button type="submit" className="btn btn-primary">
-          Add Item
+          Update
         </button>
       </form>
     </div>
   );
 };
 
-export default ItemPost;
+export default ItemUpdate;
