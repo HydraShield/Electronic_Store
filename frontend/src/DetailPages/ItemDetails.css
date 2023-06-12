@@ -26,4 +26,27 @@
     margin-left: 5px;
   }
 
+  .bill-info {
+    margin-bottom: 20px;
+  }
+  
+  .item-list {
+    margin-top: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
   

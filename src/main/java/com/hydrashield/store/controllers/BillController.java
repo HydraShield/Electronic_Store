@@ -28,6 +28,12 @@ public class BillController {
         return ResponseEntity.ok(billAccess.addBill(bill));
     }
 
+    @PutMapping(path = "/bill/{id}")
+    public ResponseEntity<?> UpdateById(@PathVariable @NonNull Integer id){
+        billAccess.updateById(id);
+        return ResponseEntity.ok("Updated");
+    }
+
     @DeleteMapping(path = "/bills")
     public ResponseEntity<?> deleteAll(){
         billAccess.deleteAll();

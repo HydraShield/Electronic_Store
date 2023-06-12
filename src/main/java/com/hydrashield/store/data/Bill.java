@@ -17,6 +17,8 @@ public class Bill {
     String mobile;
 
     long amount;
+
+    boolean status = false;
     final LocalDate date = LocalDate.now();
 
 
@@ -42,6 +44,14 @@ public class Bill {
 
     public String getCustomer() {
         return customer;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setCustomer(String customer) {

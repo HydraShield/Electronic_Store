@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import style from "./ItemDetails.css"
 import ItemService from '../Services/ItemService';
+import StockService from '../Services/StockService';
 
 const ItemDetails = () => {
 const location = useLocation();
@@ -20,6 +21,25 @@ const location = useLocation();
       else{
         console.log(response.error)
       }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleRecive = async (id) => {
+    try {
+      const x = item.item_stock.current;
+      const y = item.item_stock.ordered;
+      const uItem = {item_id: id, ...item.item_stock, current: x+y, ordered: 0}
+      const response = await StockService.updateStock(item.item_id, uItem);
+      const response1 = await ItemService.getItemById(response.data.item_id)
+    if ( response.status == 200 ){
+      alert("Stock URecives")
+      history('/item/detail', {state: response1.data})
+    }
+    else{
+      console.log(response.error)
+    }
     } catch (error) {
       console.error(error);
     }
@@ -62,6 +82,7 @@ const location = useLocation();
         </button>
         <button  className="btn btn-secondary button" onClick={() => history('/item/update', {state: item})}>Edit Item</button>
         <button  className="btn btn-primary button" onClick={() => history('/stock/update', {state: item})}>Edit Stock</button>
+        <button  className="btn btn-primary button" onClick={() => {handleRecive(item.item_id)}}>Recived</button>
       </div>
     </div>
   );

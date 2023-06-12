@@ -2,6 +2,8 @@ package com.hydrashield.store.service;
 
 import com.hydrashield.store.data.*;
 import com.hydrashield.store.model.CompleteBill;
+import com.hydrashield.store.model.DetailBill;
+import com.hydrashield.store.model.OnlyItem;
 import com.hydrashield.store.respository.BillRepository;
 import com.hydrashield.store.respository.ItemRepository;
 import com.hydrashield.store.respository.OrderRepository;
@@ -31,37 +33,53 @@ public class BillService {
         return lst;
     }
 
-    public CompleteBill getById(Integer id){
-        CompleteBill completeBill = new CompleteBill();
-        Map<Integer, Integer> items = new HashMap<>();
+    public DetailBill getById(Integer id){
         Optional<Bill> bill = billRepository.findById(id);
         if (bill.isEmpty()) return null;
         Bill fbill = bill.get();
         Iterable<Order> orders = fbill.getOrders();
-        List<Order> lst = new ArrayList<>();
-        orders.forEach(lst::add);
 
+        List<OnlyItem> items = new ArrayList<>();
+        List<Integer> quantity = new ArrayList<>();
 
-        for (Order order:
-             lst) {
-            items.put(order.getItem().getItem_id(), order.getQuantity());
-        }
+        orders.forEach(order -> {
+            int I_id = order.getOrder_id().getItem_id();
+            Item item = itemRepository.findById(I_id).orElse(null);
+            assert item != null;
+            items.add(new OnlyItem(item.getItem_id(), item.getModel(), item.getCompany(), item.getPrice()));
+            quantity.add(order.getQuantity());
 
-        completeBill.setBill_id(fbill.getBill_id());
-        completeBill.setCustomer(fbill.getCustomer());
-        completeBill.setMobile(fbill.getMobile());
-        completeBill.setDate(fbill.getDate());
-        completeBill.setAmount(fbill.getAmount());
-        completeBill.setItems(items);
-        return completeBill;
+        });
 
+        return new DetailBill(fbill.getBill_id(), fbill.getCustomer(), fbill.getMobile(), fbill.getAmount(), fbill.getDate(), fbill.isStatus(), items, quantity);
+
+    }
+
+    public void updateById(Integer id){
+        Optional<Bill> bill = billRepository.findById(id);
+        if (bill.isEmpty()) return;
+        Bill fbill = bill.get();
+        fbill.setStatus(true);
+
+        Iterable<Order> orders = fbill.getOrders();
+        Map<Integer, Integer> ids = new HashMap<>();
+        orders.forEach(order -> {
+            Integer I_id = order.getOrder_id().getItem_id();
+            ids.put(I_id, order.getQuantity());
+        });
+
+        Iterable<Stock> stocks = stockRepository.findAllById(ids.keySet());
+        stocks.forEach(stock -> {
+            stock.setDeliver(stock.getDeliver() - ids.get(stock.getItem_id()));
+        });
+        stockRepository.saveAll(stocks);
+        billRepository.save(fbill);
     }
     
     public CompleteBill addBill(CompleteBill completeBill){
         Bill bill1 = new Bill();
         bill1.setCustomer(completeBill.getCustomer());
         bill1.setMobile(completeBill.getMobile());
-//        bill1 = billRepository.save(bill1);
 
         long amount = 0;
         Map<Integer, Integer> items = completeBill.getItems();

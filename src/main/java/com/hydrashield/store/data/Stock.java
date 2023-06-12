@@ -21,6 +21,16 @@ public class Stock {
     @JoinColumn(name = "item_id")
     Item item;
 
+    public Stock() {
+    }
+
+    public Stock(int item_id, int current, int ordered, int deliver) {
+        this.item_id = item_id;
+        this.current = current;
+        this.ordered = ordered;
+        this.deliver = deliver;
+    }
+
     public int getItem_id() {
         return item_id;
     }

@@ -9,6 +9,9 @@ import ItemUpdate from './Update/ItemUpdate';
 import ItemPost from './PostPages/ItemPost';
 import StockUpdate from './Update/StockUpdate';
 import StockPage from './BasicPages/StockPage';
+import BillPage from './BasicPages/BillPage';
+import BillDetails from './DetailPages/BillDetails';
+import BillPost from './PostPages/BillPost';
 
 function App() {
   return (
@@ -21,12 +24,10 @@ function App() {
           <Route path='/item/detail' element={<ItemDetails />}></Route>
           <Route path='/item/update' element={<ItemUpdate />}></Route>
           <Route path='/stocks' element={<StockPage />}></Route>
-          {/* <Route path='/addStock' element={<StockPost />}></Route> */}
           <Route path='/stock/update' element={<StockUpdate />}></Route>
-          {/* <Route path='/stocks/detail' element={<StockDetail />}></Route> */}
-          {/* <Route path='/bills' element={<Bill />}></Route> */}
-          {/* <Route path='/addBill' element={<BillPost />}></Route> */}
-          {/* <Route path='/bill/detail' element={<BillDetail />}></Route> */}
+          <Route path='/bills' element={<BillPage />}></Route>
+          <Route path='/addBill' element={<BillPost />}></Route>
+          <Route path='/bill/detail' element={<BillDetails />}></Route>
       </Routes>
     </div>
   );
