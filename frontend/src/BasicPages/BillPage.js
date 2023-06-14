@@ -85,12 +85,16 @@ const BillPage = () => {
               <td>{item.mobile}</td>
               <td>{`${item.date[0]}-${item.date[1]}-${item.date[2]}`}</td>
               <td>{item.amount}</td>
-              <td>{item.status==0 ? 'Pending' : 'Deliverd'}</td>
+              <td className='status'>{item.status==0 ? 'Pending' : 'Deliverd'}</td>
               <td className="actions">
-                <button className="btn btn-danger button" onClick={() => handleDelete(item.bill_id)}>
-                  Delete
-                </button>
                 <button className="btn btn-primary button" onClick={() =>navigate('/bill/detail', {state: item.bill_id})}>Detail</button>
+                {item.status == 1 && (
+                  <>
+                  <button className="btn btn-danger button" onClick={() => handleDelete(item.bill_id)}>
+                  Delete
+                  </button>
+                  </>
+                )}
               </td>
             </tr>
           ))}

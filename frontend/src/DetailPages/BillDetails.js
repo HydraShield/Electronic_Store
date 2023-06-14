@@ -116,14 +116,15 @@ const BillDetails = () => {
         <span>{bill.amount}</span>
       </div>
       <div className="actions">
-        <button className="btn btn-danger" onClick={() => {handleDelete(bill.bill_id)}}>
-          Delete
-        </button>
-        {bill.status==0 && (
+        {bill.status==0 ? (
           <>
           <button  className="btn btn-secondary button" onClick={() => {handleDelivered()}}>Delivered</button>
           </>
-        )}
+        ) : <>
+           <button className="btn btn-danger" onClick={() => {handleDelete(bill.bill_id)}}>
+          Delete
+        </button>
+        </>}
       </div>
       </>
       )}

@@ -83,6 +83,7 @@ public class BillService {
 
         long amount = 0;
         Map<Integer, Integer> items = completeBill.getItems();
+        System.out.println(items);
         List<Order> orders = new ArrayList<>();
         List<Stock> stocks = new ArrayList<>();
         for (Integer key:

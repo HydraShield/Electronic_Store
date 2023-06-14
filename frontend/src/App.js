@@ -26,7 +26,7 @@ function App() {
           <Route path='/stocks' element={<StockPage />}></Route>
           <Route path='/stock/update' element={<StockUpdate />}></Route>
           <Route path='/bills' element={<BillPage />}></Route>
-          <Route path='/addBill' element={<BillPost />}></Route>
+          <Route path='/bill/add' element={<BillPost />}></Route>
           <Route path='/bill/detail' element={<BillDetails />}></Route>
       </Routes>
     </div>
